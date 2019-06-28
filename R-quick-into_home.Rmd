@@ -1,0 +1,71 @@
+---
+title: "R Notebook"
+output: 
+  html_notebook: 
+    toc: TRUE
+---
+
+# R is so much more than a statistical program  
+- RStudio as a file manager/git user interface  
+- A graphic design tool  
+- A webpage generator  
+- A notebook/word processor
+- A report generator
+- The R console - sometimes this is all you have
+
+# RStudio
+- Sometimes RStudio is available on servers
+- 4 panes  
+- console vs. source  
+- so many options for other panes  
+- using RStudio in combination with projects creates a simple file structure for working with repositories in github, especially working directory.
+
+# How to import data into R
+## As a package
+Some packages have datasets included, so you only have to "call" the data and it will appear
+```{r}
+library(ggplot2)
+
+mtcars
+```
+## As a delimited file (csv or tsv) 
+```{r}
+library(readr) # included in library(tidyverse)
+library(here)
+
+file <- here("data", "Maalaea_Deep.csv")
+read_csv(file)
+
+# can also read from the web
+read_csv("https://github.com/NCEAS/crescynt-training/blob/master/data/Maalaea_Deep.csv")
+```
+
+## As an excel file  
+- You have to know which sheet of the file you want to bring in  
+- You can't read straight from the web (...yet (v1.3.1), try after an update is released.)
+```{r}
+library(readxl)
+
+file <- here("data", "2012_GPS-surveys.xlsx")
+
+excel_sheets(file)
+
+read_xlsx(path = file, sheet = "Data")
+
+readxl::read_excel("https://github.com/pinskylab/leyteBuildDB/blob/master/data_raw/survey-data/2012_GPS-surveys.xlsx")
+
+```
+
+## As an RData file
+```{r}
+# can't from the web yet
+readRDS("https://github.com/pinskylab/OceanAdapt/raw/master/data_clean/by_national.RData")
+
+# can from a local file
+file <- here("data", "DBdata.RData")
+
+readRDS(file)
+load(file)
+```
+
+
